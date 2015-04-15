@@ -26,7 +26,6 @@ public class StartScreen implements Screen{
 		ib_start = new ImageButton(imageUp, imageDown);
 		ib_start.setPosition((400-75)*scalewidth, 100*scaleheight);
 		background = new Image(new Texture(Gdx.files.internal("images/start_bg.png")));
-		ib_start.setDebug(true);
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		stage.addActor(background);
