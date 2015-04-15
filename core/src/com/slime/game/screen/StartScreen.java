@@ -15,8 +15,8 @@ public class StartScreen implements Screen{
 	private ImageButton ib_start;
 	private Image background;
 	private float scalewidth=1.0f,scaleheight=1.0f;
-	public static final int W = 800;
-	public static final int H = 600;
+	public static final float W = 800;
+	public static final float H = 600;
 
 	@Override
 	public void show() {
@@ -43,8 +43,8 @@ public class StartScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		scalewidth = width/W;
-		scaleheight = height/H;
+		scalewidth = ((float)width)/W;
+		scaleheight = ((float)height)/H;
 		
 	}
 
