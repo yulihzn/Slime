@@ -5,16 +5,18 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 
 public class StartScreen implements Screen{
 	private Stage stage;
-	private TextureAtlas atlas;
+	private TextureAtlas atlas_button;
 	private ImageButton ib_start;
 	private Image background;
 	private float scalewidth=1.0f,scaleheight=1.0f;
@@ -26,9 +28,10 @@ public class StartScreen implements Screen{
 
 	@Override
 	public void show() {
-		atlas = new TextureAtlas(Gdx.files.internal("images/buttons.pack"));
-		TextureRegionDrawable imageUp = new TextureRegionDrawable(atlas.findRegion("button_start_normal"));
-		TextureRegionDrawable imageDown = new TextureRegionDrawable(atlas.findRegion("button_start_pressed"));
+		atlas_button = new TextureAtlas(Gdx.files.internal("images/buttons.pack"));
+		
+		TextureRegionDrawable imageUp = new TextureRegionDrawable(atlas_button.findRegion("button_start_normal"));
+		TextureRegionDrawable imageDown = new TextureRegionDrawable(atlas_button.findRegion("button_start_pressed"));
 		ib_start = new ImageButton(imageUp, imageDown);
 		ib_start.setPosition((Gdx.graphics.getWidth()/2-75)*scalewidth, 100*scaleheight);
 		background = new Image(new Texture(Gdx.files.internal("images/start_bg.png")));
@@ -38,9 +41,10 @@ public class StartScreen implements Screen{
 		stage.addActor(ib_start);
 		spriteBatch = new SpriteBatch();
 		effect = new ParticleEffect();
-//		effect.load(Gdx.files.internal("data/fire.p"), Gdx.files.internal("images/fire.png"));
-//		effect.setPosition(600, 100);
-		effectPool = new ParticleEffectPool(effect, 5, 10);
+//		effect.load(Gdx.files.internal("fire.p"),Gdx.files.internal("data"));
+		effect.setEmittersCleanUpBlendFunction(false);
+		effect.setPosition(600, 100);
+		effectPool = new ParticleEffectPool(effect, 1, 2);
 	}
 
 	@Override
@@ -80,7 +84,7 @@ public class StartScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		atlas.dispose();
+		atlas_button.dispose();
 		effectPool.clear();
 		stage.dispose();
 		
