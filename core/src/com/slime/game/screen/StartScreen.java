@@ -38,8 +38,8 @@ public class StartScreen implements Screen{
 		stage.addActor(ib_start);
 		spriteBatch = new SpriteBatch();
 		effect = new ParticleEffect();
-		effect.load(Gdx.files.internal("fire.p"), Gdx.files.internal("fire.png"));
-		effect.setPosition(600, 100);
+//		effect.load(Gdx.files.internal("data/fire.p"), Gdx.files.internal("images/fire.png"));
+//		effect.setPosition(600, 100);
 		effectPool = new ParticleEffectPool(effect, 5, 10);
 	}
 
