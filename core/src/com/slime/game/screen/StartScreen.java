@@ -5,24 +5,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.slime.game.actor.ParticleActor;
 
 public class StartScreen implements Screen{
 	private Stage stage;
 	private TextureAtlas atlas_button;
 	private ImageButton ib_start;
 	private Image background;
-	private float scalewidth=1.0f,scaleheight=1.0f;
-	public static final float W = 800;
-	public static final float H = 600;
 	private ParticleEffect effect;
 	private ParticleEffectPool effectPool;
-	private SpriteBatch spriteBatch;
+	private ParticleActor torch;
 
 	@Override
 	public void show() {
@@ -30,35 +27,30 @@ public class StartScreen implements Screen{
 		TextureRegionDrawable imageUp = new TextureRegionDrawable(atlas_button.findRegion("button_start_normal"));
 		TextureRegionDrawable imageDown = new TextureRegionDrawable(atlas_button.findRegion("button_start_pressed"));
 		ib_start = new ImageButton(imageUp, imageDown);
-		ib_start.setPosition((Gdx.graphics.getWidth()/2-75)*scalewidth, 100*scaleheight);
+		ib_start.setPosition(Gdx.graphics.getWidth()/2-75, 100);
 		background = new Image(new Texture(Gdx.files.internal("images/start_bg.png")));
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		stage.addActor(background);
 		stage.addActor(ib_start);
-		spriteBatch = new SpriteBatch();
 		effect = new ParticleEffect();
-//		effect.load(Gdx.files.internal("fire.p"),Gdx.files.internal("images/fire.png"));
-		effect.setEmittersCleanUpBlendFunction(false);
-		effect.setPosition(600, 100);
+		effect.load(Gdx.files.internal("data/fire.p"),Gdx.files.internal("images"));
 		effectPool = new ParticleEffectPool(effect, 1, 2);
+		torch = new ParticleActor(effect);
+		stage.addActor(torch);
+		torch.startEffect();
+		torch.setPosition(725, 135);
 	}
 
 	@Override
 	public void render(float delta) {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
-		spriteBatch.begin();
-		effect.draw(spriteBatch);
-		spriteBatch.end();
-		
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		scalewidth = ((float)width)/W;
-		scaleheight = ((float)height)/H;
-		
+		stage.getViewport().update(width, height);
 	}
 
 	@Override
