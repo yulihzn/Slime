@@ -5,14 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 
 public class StartScreen implements Screen{
 	private Stage stage;
@@ -29,7 +27,6 @@ public class StartScreen implements Screen{
 	@Override
 	public void show() {
 		atlas_button = new TextureAtlas(Gdx.files.internal("images/buttons.pack"));
-		
 		TextureRegionDrawable imageUp = new TextureRegionDrawable(atlas_button.findRegion("button_start_normal"));
 		TextureRegionDrawable imageDown = new TextureRegionDrawable(atlas_button.findRegion("button_start_pressed"));
 		ib_start = new ImageButton(imageUp, imageDown);
@@ -41,7 +38,7 @@ public class StartScreen implements Screen{
 		stage.addActor(ib_start);
 		spriteBatch = new SpriteBatch();
 		effect = new ParticleEffect();
-//		effect.load(Gdx.files.internal("fire.p"),Gdx.files.internal("data"));
+//		effect.load(Gdx.files.internal("fire.p"),Gdx.files.internal("images/fire.png"));
 		effect.setEmittersCleanUpBlendFunction(false);
 		effect.setPosition(600, 100);
 		effectPool = new ParticleEffectPool(effect, 1, 2);
